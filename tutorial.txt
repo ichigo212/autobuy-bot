@@ -1,0 +1,93 @@
+AutoBuy Bot Setup Tutorial
+==========================
+
+This repository contains the bot source and safe example configuration only.
+Never commit your real .env, database, stock files, backups, logs, or bot token.
+
+1. Install prerequisites
+------------------------
+- Windows 10/11
+- Node.js 18.17 or newer (LTS recommended)
+- A Discord application and bot token
+- A Discord server where you have permission to add/manage the bot
+
+2. Download and install
+-----------------------
+Open PowerShell in this folder and run:
+
+  npm install
+
+Or double-click start.bat. The launcher installs missing packages and starts a
+local MongoDB database automatically.
+
+3. Create your private configuration
+-------------------------------------
+Copy .env.example to .env. Open .env and fill in at least:
+
+- BOT_TOKEN: the token from Discord Developer Portal > Bot
+- OWNER_IDS: your Discord user ID (comma-separated if needed)
+- GCASH_NUMBER and GCASH_NAME: the payment details shown to buyers
+- BRAND, CURRENCY, and optional icon/banner settings
+
+Keep .env private. It is ignored by Git. Never paste the token into GitHub,
+issues, screenshots, or public chat. If a token is exposed, reset it immediately
+in the Discord Developer Portal.
+
+4. Configure Discord
+---------------------
+In the Developer Portal:
+- Enable the intents required by the bot, including Server Members Intent if
+  you plan to use DM-everyone announcements.
+- Invite the bot with the permissions needed for slash commands, messages,
+  embeds, DMs, and managing roles if you use the customer-role feature.
+
+Start the bot, then use these owner/staff commands in your server:
+- /setlogchannel #staff-logs
+- /settings approval-channel #topup-review
+- /settings sales-channel #sales
+- /addproduct
+- /setupstore (or /livestock)
+
+5. Run the bot
+--------------
+For the bundled local database:
+
+  npm start
+
+The database is stored under data/db and is intentionally ignored. Stop with
+Ctrl+C so MongoDB can checkpoint cleanly.
+
+For an external MongoDB instance:
+- Set MONGODB_URI in your private .env.
+- Run: npm run start:remote-db
+
+6. Add products and stock
+-------------------------
+Use /addproduct, then add items with /updatestocknew or /changestock. Stock
+files are stored in data/stock and are private live business data. Do not upload
+them to a public repository.
+
+7. GCash top-ups
+----------------
+/topup shows the configured GCash card. Buyers submit a receipt and reference
+number through the form. Receipt processing is local; unreadable or suspicious
+receipts go to the configured staff approval channel.
+
+8. Backups and updates
+----------------------
+Use /backup for private server data backups. Keep backups outside GitHub.
+When moving files to another machine, copy the source files and install with
+npm install. Copy your private .env and live data separately through a secure
+channel; never put them in this public repository or an update ZIP checked into
+Git.
+
+9. Before publishing changes
+----------------------------
+Run:
+
+  git status --short
+  git diff --check
+
+Confirm that .env, data/, backups/, restore-keys/, node_modules/, *.log,
+*.zip, and *.7z are not listed for commit. If any token or live customer data
+appears in a file, remove it before publishing and rotate the credential.

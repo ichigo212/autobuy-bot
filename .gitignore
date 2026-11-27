@@ -1,0 +1,21 @@
+# Secrets
+.env
+
+# Live data — balances, sales, stock items for sale (never commit these)
+data/*
+!data/.gitkeep
+backups/
+
+# Dependencies & logs
+node_modules/
+*.log
+
+# Local archives and deployment packages
+*.7z
+*.zip
+
+# Local state
+.*/
+
+# Keys to restore (restore-products.js)
+restore-keys/

@@ -1,0 +1,23 @@
+{
+  "name": "autobuy-bot",
+  "version": "1.0.0",
+  "description": "Discord auto-buy store bot with balances, instant delivery, top-ups, coupons and analytics",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node start-local.js",
+    "start:remote-db": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.26.4",
+    "dotenv": "^16.0.3",
+    "mongodb-memory-server": "^10.4.3",
+    "mongoose": "^6.7.1",
+    "tesseract.js": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}
